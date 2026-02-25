@@ -951,7 +951,10 @@ class OthelloRenderer(JAXGameRenderer):
         is_done = jnp.logical_or(board_full, no_moves_left)
 
         def _apply_filter(image):
-             filter_color = jnp.array([196, 212, 210], dtype=jnp.uint16)
+             if self.config.channels == 1:
+                 filter_color = jnp.array([206], dtype=jnp.uint16)
+             else:
+                 filter_color = jnp.array([196, 212, 210], dtype=jnp.uint16)
              return (image.astype(jnp.uint16) * filter_color // 255).astype(jnp.uint8)
 
         return jax.lax.cond(is_done, _apply_filter, lambda x: x, img)
