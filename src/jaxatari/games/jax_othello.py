@@ -768,10 +768,10 @@ class JaxOthello(JaxEnvironment[OthelloState, OthelloObservation, OthelloInfo, O
 
 # --- Othello Renderer ---
 class OthelloRenderer(JAXGameRenderer):
-    def __init__(self, consts: OthelloConstants = None):
-        super().__init__()
+    def __init__(self, consts: OthelloConstants = None, config=None):
+        super().__init__(consts, config=config)
         self.consts = consts or OthelloConstants()
-        self.config = render_utils.RendererConfig(
+        self.config = config or render_utils.RendererConfig(
             game_dimensions=(self.consts.HEIGHT, self.consts.WIDTH),
             channels=3,
         )
